@@ -54,8 +54,4 @@ class Licencia extends Model
     {
         return $this->hasMany(Comision::class, 'licencia_id');
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 08935a3c63a169b72add2804f61cee8d6ed33cf4
 }

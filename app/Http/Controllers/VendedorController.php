@@ -2,13 +2,8 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
 use App\Models\Vendedor;
 use Illuminate\Http\Request;
-=======
-use Illuminate\Http\Request;
-use App\Models\Vendedor;
->>>>>>> 08935a3c63a169b72add2804f61cee8d6ed33cf4
 
 class VendedorController extends Controller
 {

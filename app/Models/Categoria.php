@@ -16,11 +16,6 @@ class Categoria extends Model
     protected $fillable = [ 'nombre' ];
 
     public $timestamps = false;
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> 08935a3c63a169b72add2804f61cee8d6ed33cf4
     protected $primaryKey = 'id';
     public $incrementing = true;
     protected $keyType = 'int';

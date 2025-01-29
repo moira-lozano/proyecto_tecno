@@ -13,18 +13,7 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\VendedorController;
 use App\Http\Controllers\NotaVentaController;
-
-
-Auth::routes();
-
-
-use App\Categoria;
-use App\Http\Controllers\CategoriaController;
-use App\Http\Controllers\LicenciaController;
-use App\Http\Controllers\MarcaController;
-use App\Marca;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SerieController;
 
 
 Auth::routes();
@@ -75,11 +64,7 @@ Route::middleware(['auth'])->group(function () {
                 return 'Gestión de Ventas';
             });
         });
-<<<<<<< HEAD
         
-=======
-
->>>>>>> 08935a3c63a169b72add2804f61cee8d6ed33cf4
         Route::middleware(['permission:manage-payments'])->group(function () {
             Route::get('/gestion/pagos', function () {
                 return 'Gestión de Pagos';
@@ -92,12 +77,6 @@ Route::middleware(['auth'])->group(function () {
 Route::resource('usuarios', UsuarioController::class);
 Route::resource('clientes', ClienteController::class);
 Route::resource('vendedores', VendedorController::class);
-<<<<<<< HEAD
-//Route::resource('notas_venta', NotaVentaController::class);
-Route::resource('marcas', MarcaController::class);
-Route::resource('categorias', CategoriaController::class);
-Route::resource('licencias', LicenciaController::class);
-=======
 Route::resource('notas_venta', NotaVentaController::class);
 Route::resource('marcas', MarcaController::class);
 Route::resource('categorias', CategoriaController::class);
@@ -105,21 +84,13 @@ Route::resource('licencias', LicenciaController::class);
 Route::resource('notaventa', NotaVentaController::class);
 Route::resource('series', SerieController::class);
 
->>>>>>> 08935a3c63a169b72add2804f61cee8d6ed33cf4
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
     ->middleware('auth')
     ->name('home');
 
-<<<<<<< HEAD
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-=======
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/series/buscar', [SerieController::class, 'buscarPorLicencia'])->name('series.buscarPorLicencia');
->>>>>>> 08935a3c63a169b72add2804f61cee8d6ed33cf4

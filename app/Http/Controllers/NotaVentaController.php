@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\NotaVenta;
+use App\Models\Licencia;
 
 class NotaVentaController extends Controller
 {

@@ -21,16 +21,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-<<<<<<< HEAD
     // En HomeController
     public function index()
     {
         $rol = auth()->user()->rol;
         return view('home', compact('rol'));
-=======
-    public function index()
-    {
-        return view('home');
->>>>>>> 08935a3c63a169b72add2804f61cee8d6ed33cf4
     }
 }

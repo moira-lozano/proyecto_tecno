@@ -2,18 +2,10 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
 use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-=======
-use Illuminate\Http\Request;
-use App\Models\Categoria;
-use Illuminate\Support\Facades\Log;
-
-
->>>>>>> 08935a3c63a169b72add2804f61cee8d6ed33cf4
 class CategoriaController extends Controller
 {
     /**
@@ -49,15 +41,9 @@ class CategoriaController extends Controller
         $data = $request->validate([
             'nombre' => 'required|string|max:255'
         ]);
-<<<<<<< HEAD
     
         Categoria::create($data);
     
-=======
-
-        Categoria::create($data);
-
->>>>>>> 08935a3c63a169b72add2804f61cee8d6ed33cf4
         return redirect()->route('categorias.index')->with('success', 'Categoria creada exitosamente.');
     }
 
@@ -79,11 +65,7 @@ class CategoriaController extends Controller
             // Log de datos recibidos
             Log::info('Datos recibidos para actualizar:', $request->all());
             Log::info('Categoria actual:', $categoria->toArray());
-<<<<<<< HEAD
     
-=======
-
->>>>>>> 08935a3c63a169b72add2804f61cee8d6ed33cf4
             $data = $request->validate([
                 'nombre' => [
                     'required',
@@ -92,7 +74,6 @@ class CategoriaController extends Controller
                     'unique:categoria,nombre,' . $categoria->id // Cambié a minúsculas
                 ]
             ]);
-<<<<<<< HEAD
            
             // Log de datos validados
             Log::info('Datos validados:', $data);
@@ -102,27 +83,12 @@ class CategoriaController extends Controller
             // Log de categoria actualizada
             Log::info('categoria actualizada:', $categoria->toArray());
            
-=======
-
-            // Log de datos validados
-            Log::info('Datos validados:', $data);
-
-            $categoria->update($data);
-
-            // Log de categoria actualizada
-            Log::info('categoria actualizada:', $categoria->toArray());
-
->>>>>>> 08935a3c63a169b72add2804f61cee8d6ed33cf4
             return redirect()->route('categorias.index')
                 ->with('success', 'Categoria actualizada exitosamente.');
         } catch (\Illuminate\Validation\ValidationException $e) {
             // Log de errores de validación
             Log::error('Error de validación:', $e->errors());
-<<<<<<< HEAD
     
-=======
-
->>>>>>> 08935a3c63a169b72add2804f61cee8d6ed33cf4
             return redirect()->back()
                 ->withErrors($e->validator)
                 ->withInput();
@@ -132,11 +98,7 @@ class CategoriaController extends Controller
                 'mensaje' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);
-<<<<<<< HEAD
     
-=======
-
->>>>>>> 08935a3c63a169b72add2804f61cee8d6ed33cf4
             return redirect()->route('categorias.index')
                 ->with('error', 'Error al actualizar la categoria: ' . $e->getMessage());
         }

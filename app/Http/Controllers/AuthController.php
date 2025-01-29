@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Usuario; 
+use App\Models\Usuario;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -14,14 +14,14 @@ class AuthController extends Controller
     use AuthenticatesUsers;
 
 
-     /**
+    /**
      * Where to redirect users after login.
      *
      * @var string
      */
     protected $redirectTo = '/';
 
-     /**
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -33,11 +33,11 @@ class AuthController extends Controller
 
     public function showLoginForm()
     {
-          // Contar visitas de la página actual
+        // Contar visitas de la página actual
         //   Pagina::contarPagina(request()->path());
 
-       
-           // Obtener el número de visitas para la página actual
+
+        // Obtener el número de visitas para la página actual
         //   $pagina = Pagina::where('path', request()->path())->first();
         //   $visitas = $pagina ? $pagina->visitas : 0;
         // return view('auth.login',compact('visitas'));
@@ -46,29 +46,35 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        // Validación
-        $credentials = $request->only('correo', 'clave');
+        // Validar las credenciales
+        $credentials = $request->validate([
+            'correo' => ['required', 'email'],
+            'clave' => ['required'],
+        ]);
+
+        dd([
+            'input' => $request->all(),
+            'user_exists' => Usuario::where('correo', $request->correo)->exists(),
+            'password_hash' => Usuario::where('correo', $request->correo)->first()?->clave ?? null,
+            'password_check' => Hash::check($request->clave, Usuario::where('correo', $request->correo)->first()?->clave ?? ''),
+        ]);
         
-        // if (Auth::attempt($credentials)) {
-        //     return redirect()->intended('/');
-        // }
-       
-         // Intenta autenticar con las credenciales proporcionadas
-    if (Auth::attempt(['correo' => $credentials['correo'], 'password' => $credentials['clave']])) {
-        // Inicio de sesión exitoso
-        return redirect()->intended('/home');
+
+        $user = Usuario::where('correo', $credentials['correo'])->first();
+
+        if ($user && Hash::check($credentials['clave'], $user->clave)) {
+            Auth::login($user); // Se autentica con el ID, no con el correo
+            return redirect()->intended($this->redirectTo);
+        }
+        
+        
+
+        // Si falla, regresar con un mensaje de error
+        return back()->withErrors([
+            'correo' => 'Las credenciales no coinciden con nuestros registros.',
+        ])->onlyInput('correo');
     }
 
-    // Si falla, depura las credenciales y los valores enviados
-    dd([
-        'input' => $credentials,
-        'user_exists' => Usuario::where('correo', $credentials['correo'])->exists(),
-        'password_hash' => Usuario::where('correo', $credentials['correo'])->first()?->clave ?? null,
-        'password_check' => Hash::check($credentials['clave'], Usuario::where('correo', $credentials['correo'])->first()?->clave ?? ''),
-    ]);
-
-        return redirect()->back()->withErrors(['correo' => 'Las credenciales no coinciden con nuestros registros.']);
-    }
 
     public function logout()
     {
@@ -77,7 +83,7 @@ class AuthController extends Controller
     }
 
 
-     /**
+    /**
      * Customize the field for login.
      *
      * @return string
@@ -86,5 +92,4 @@ class AuthController extends Controller
     {
         return 'correo'; // Usar el campo correo para autenticación
     }
-
 }

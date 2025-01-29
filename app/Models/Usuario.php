@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-<<<<<<< HEAD
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -13,22 +12,23 @@ class Usuario extends Authenticatable
     use HasFactory;
 
     protected $table = 'usuario'; 
-    protected $fillable = ['correo', 'clave', 'rol']; 
-=======
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+    protected $fillable = [
+        'correo',
+        'clave',
+        'rol',
+        'fecha_actualizacion',
+        'fecha_creacion',
+    ];
 
-class Usuario extends Model
-{
-    use HasFactory;
+    public $timestamps = false;
 
-    protected $table = 'usuario';
-    protected $fillable = ['correo', 'clave', 'rol'];
->>>>>>> 08935a3c63a169b72add2804f61cee8d6ed33cf4
-
-    const CREATED_AT = 'fecha_creacion'; // Nombre personalizado para created_at
-    const UPDATED_AT = 'fecha_actualizacion'; // Nombre personalizado para updated_at
+    protected $hidden = ['clave'];  // Oculta la clave en las respuestas JSON
+    
+    protected $casts = [
+        'fecha_actualizacion' => 'datetime',
+        'fecha_creacion' => 'datetime',
+    ];
 
 
      /**
@@ -56,17 +56,15 @@ class Usuario extends Model
         return $this->hasOne(Vendedor::class, 'id_usuario');
     }
 
-    public function getAuthIdentifierName()
+    public function getAuthIdentifier()
     {
-        return 'correo'; // Campo que se usará para identificar al usuario
+        return $this->id; // Laravel usará 'id' en la sesión en lugar de 'correo'
     }
-
+    
     public function getAuthPassword()
     {
         return $this->clave; // Retorna el campo 'clave' como contraseña
     }
-    protected $hidden = ['clave', 'remember_token'];
-
 
     /**
      * Verifica si el usuario tiene un rol específico.
@@ -93,9 +91,5 @@ class Usuario extends Model
     {
         $permissions = self::$rolePermissions[$this->rol] ?? [];
         return in_array($permission, $permissions);
-<<<<<<< HEAD
     }   
-=======
-    }
->>>>>>> 08935a3c63a169b72add2804f61cee8d6ed33cf4
 }

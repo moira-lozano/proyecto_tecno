@@ -5,10 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Comision;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 08935a3c63a169b72add2804f61cee8d6ed33cf4
 class ComisionController extends Controller
 {
     /**

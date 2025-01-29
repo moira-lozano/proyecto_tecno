@@ -5,10 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cliente;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 08935a3c63a169b72add2804f61cee8d6ed33cf4
 class ClienteController extends Controller
 {
     /**
@@ -48,11 +44,7 @@ class ClienteController extends Controller
      */
     public function show(string $id)
     {
-<<<<<<< HEAD
         
-=======
-
->>>>>>> 08935a3c63a169b72add2804f61cee8d6ed33cf4
     }
 
     /**
